@@ -1,0 +1,12 @@
+Professor
+Aluno
+Estudante
+Faxineiro
+Diretor
+Reitor
+Segurança
+Monitor
+Cadeira
+Mesa
+Computador
+Notebook
