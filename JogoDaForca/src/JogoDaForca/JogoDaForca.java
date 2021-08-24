@@ -52,10 +52,9 @@ public class JogoDaForca {
 		}
 	}
 
+		int sorteio = new Random().nextInt(N);
 	public void iniciar() {
-		Random sorteio = new Random();
-		int sorteada = sorteio.nextInt(N);
-		palavra = palavras[sorteada];
+		palavra = palavras[sorteio];
 		String letra;
 		for(int i=0 ; i<palavra.length(); i++) {
 			letra = palavra.substring(i, i+1); //obtém a letra da posição i
@@ -83,9 +82,7 @@ public class JogoDaForca {
 	}
 
 	public boolean terminou() {
-		if(this.erros==6) {
-			return true;
-		}else if(this.acertos==6){
+		if(this.erros==6 || this.acertos==palavra.length()) {
 			return true;
 		}else {
 			return false;
@@ -97,11 +94,12 @@ public class JogoDaForca {
 	}
 
 	public String getDica() {
-		return dicas;
+		return dicas[sorteio];
 	}
 
 
 	public String getPenalidade() {
+		return penalidades[getErros()-1];
 	}
 
 	public int getAcertos() {
@@ -113,14 +111,10 @@ public class JogoDaForca {
 	}
 
 	public String getResultado() {
-		//return this.resultado();
+		if(acertos==palavras[]) {
+			
+		}
 	}
 
-	public void setAcertos(int acertos) {
-		this.acertos = acertos+1;
-	}
-	public void setErros(int erros) {
-		this.erros+=1;
-	}
 	
 }
