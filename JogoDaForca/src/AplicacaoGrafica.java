@@ -10,6 +10,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import JogoDaForca.JogoDaForca;
+
 public class AplicacaoGrafica {
 	private JFrame frame;
 	private JTextField textField;
@@ -78,6 +80,8 @@ public class AplicacaoGrafica {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					jogo = new JogoDaForca("palavras.txt");
+					jogo.iniciar();
+					
 					label_1.setText("Acertos: 0");
 					label_2.setText("Erros: 0");
 					label_3.setText("Dica:" + jogo.getDica());

@@ -7,7 +7,7 @@ package JogoDaForca;
 import java.util.Scanner;
 
 public class JogoDaForcaConsole {
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		Scanner teclado = new Scanner (System.in);
 
 		JogoDaForca jogo = new JogoDaForca("palavras.txt");

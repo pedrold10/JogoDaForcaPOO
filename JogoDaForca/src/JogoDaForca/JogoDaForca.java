@@ -1,5 +1,6 @@
 package JogoDaForca;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.util.Random;
 import java.util.Scanner;
@@ -9,30 +10,28 @@ import java.util.Arrays;
 
 /**
  * Projeto1 de POO
- * Grupo de alunos:  ???
+ * Grupo de alunos:  Pedro Gabriel (Matricula: 20192370019)
  *
  */
 
 
 public class JogoDaForca {
-	private final int N; // quantidade de palavras do arquivo (lido do arquivo)
-	private String[] palavras; // um array com as N palavras (lidas do arquivo)
-	private String[] dicas; // um array com as N dicas (lidas do arquivo)
+	private final int N; 
+	private String[] palavras; 
+	private String[] dicas; 
 	private String palavra;
-	private int indice = -1; // indice da palavra sorteadado jogo
-	private int acertos; // total de acertos do jogo
-	private int erros; // total de erros do jogo
+	private int indice = -1; 
+	private int acertos; 
+	private int erros; 
 	private String[] penalidades = {"perna","perna","braço","braço","tronco","cabeça"};
 	private String[] arquivos = {"pes.jpg","pernas.jpg","maos.jpg","bracos.jpg","tronco.jpg","cabeca.jpg"};
-	 /*– retorna true, caso a letra exista dentro da palavra sorteada e
-	retorna false, caso contrário. Além disso, o método marca as posições encontradas e contabiliza X
-	acertos para as X ocorrências da letra encontrada dentro da palavra ou contabiliza 1 erro para a
-	inexistência da letra na palavra.*/
+
 
 	public JogoDaForca(String nomearquivo) throws Exception{
 		try {
 			Scanner arquivo = new Scanner(new File(nomearquivo));
 			N = Integer.parseInt(arquivo.nextLine());
+			indice = new Random().nextInt(N);
 			palavras = new String[N]; 
 			dicas    = new String[N];
 			String linha;
@@ -52,37 +51,34 @@ public class JogoDaForca {
 		}
 	}
 
-		int sorteio = new Random().nextInt(N);
 	public void iniciar() {
-		palavra = palavras[sorteio];
-		String letra;
-		for(int i=0 ; i<palavra.length(); i++) {
-			letra = palavra.substring(i, i+1); //obtém a letra da posição i
-			System.out.println(letra);
-			palavra = "*".repeat(palavra.length());
-			char[] palavra2 = palavra.toCharArray();
-			palavra = String.valueOf(palavra2);
-		}
+		palavra = "*".repeat(palavras[indice].length());
+		char[] palavra2 = palavra.toCharArray();
+		palavra = String.valueOf(palavra2);
 	}
 
 	public boolean adivinhou(String letra) {
-		if(palavra.contains(letra)) {
-			acertos+=1;
-			for(int i=0; i<palavra.length(); i++) {
-				char[] palavraArray= palavra.toCharArray();
-				if(letra.equals(palavraArray[i])) {
+		letra = letra.toUpperCase();
+		String palavraReal = palavras[indice].toUpperCase();
+		if(palavraReal.contains(letra)) {
+			acertos++;
+			char[] palavraArray = palavra.toCharArray();
+			char[] palavraRealArray= palavraReal.toCharArray();
+			for(int i=0; i<palavraReal.length(); i++) {
+				if(letra.charAt(0)==palavraRealArray[i]) {
+					palavraArray[i] = letra.charAt(0);	
 				}
-			return true;
 			}
+			palavra =  String.valueOf(palavraArray);
+			return true;
 		}else {
 			erros++;
 			return false;
 		}
-		return letra != null;
 	}
 
 	public boolean terminou() {
-		if(this.erros==6 || this.acertos==palavra.length()) {
+		if(this.erros==6 || palavras[indice].equals(palavra)) {
 			return true;
 		}else {
 			return false;
@@ -90,17 +86,18 @@ public class JogoDaForca {
 	}
 
 	public String getPalavra() {
-		return palavra;
+		return this.palavra;
 	}
 
 	public String getDica() {
-		return dicas[sorteio];
+		return this.dicas[indice];
 	}
 
 
 	public String getPenalidade() {
-		return penalidades[getErros()-1];
+		return this.penalidades[getErros()-1];
 	}
+
 
 	public int getAcertos() {
 		return this.acertos;
@@ -111,8 +108,10 @@ public class JogoDaForca {
 	}
 
 	public String getResultado() {
-		if(acertos==palavras[]) {
-			
+		if(acertos>erros) {
+			return("Você ganhou");
+		}else {
+			return("Você foi enforcado");
 		}
 	}
 
